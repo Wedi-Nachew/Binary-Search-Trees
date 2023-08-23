@@ -20,7 +20,9 @@ const Tree = (array) => {
     const root = buildTree(array);
     // insert the value passed to it to the tree
     const insert = (newValue, tree = root) => {
-        if (tree.value > newValue) {
+        if (newValue === tree.value) {
+            return false;
+        } else if (tree.value > newValue) {
             if (tree.left === null) {
                 return (tree.left = Node(newValue));
             } else {
@@ -153,6 +155,16 @@ const Tree = (array) => {
 
         return count;
     };
+    // accepts a node and returns the number as the number of edges in longest path from a given node to a leaf node.
+    const height = (node) => {
+        if (node === null) {
+            return -1;
+        }
+        const leftHeight = height(node.left);
+        const rightHeight = height(node.right);
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    };
 
     return {
         root,
@@ -165,8 +177,11 @@ const Tree = (array) => {
         postOrder,
         height,
         depth,
+        isBalanced,
+        reBalance,
     };
 };
+// let tree = Tree([10, 43, 59, 9, 45, 87, 62, 25, 92, 11, 84, 55]);
 let tree = Tree([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
 console.log(tree.height(tree.root));
