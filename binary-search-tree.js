@@ -17,7 +17,7 @@ function buildTree(array, start = 0, end = array.length - 1) {
 }
 
 const Tree = (array) => {
-    const root = buildTree(array);
+    let root = buildTree(array);
     // insert the value passed to it to the tree
     const insert = (newValue, tree = root) => {
         if (newValue === tree.value) {
@@ -165,7 +165,26 @@ const Tree = (array) => {
 
         return Math.max(leftHeight, rightHeight) + 1;
     };
+    // checks if the tree is balanced
+    const isBalanced = (tree) => {
+        if (tree === null) {
+            return true;
+        }
+        const leftHeight = height(tree.left);
+        const rightHeight = height(tree.right);
+        if (
+            Math.abs(leftHeight - rightHeight) <= 1 &&
+            isBalanced(tree.left) &&
+            isBalanced(tree.right)
+        ) {
+            return true;
+        }
 
+        return false;
+    };
+    const reBalance = (tree) => {
+        tree.root = buildTree(inOrder(null, tree));
+    };
     return {
         root,
         insert,
@@ -183,6 +202,10 @@ const Tree = (array) => {
 };
 // let tree = Tree([10, 43, 59, 9, 45, 87, 62, 25, 92, 11, 84, 55]);
 let tree = Tree([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-
-console.log(tree.height(tree.root));
+tree.insert(100);
+tree.insert(102);
+tree.insert(103);
+console.log(tree.isBalanced(tree.root));
+tree.reBalance(tree);
+console.log(tree.isBalanced(tree.root));
 // console.log(JSON.stringify(tree.root, null, 4));
