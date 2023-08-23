@@ -1,20 +1,10 @@
-/* Psuedo Code 
- find middle item in the array
- create a node using the middle item
- set node left to be a recursive call of the the items left to the middle item
- set node right to be a recursive call of the the items right to the middle item
- return node
-*/
 // a Node factory that returns the value and left & right attributes
-const Node = (value) => {
-    let left = null;
-    let right = null;
+const Node = (value, left = null, right = null) => {
     return { value, left, right };
 };
 
 function buildTree(array, start = 0, end = array.length - 1) {
-    array = Array.from(new Set(array.sort()));
-
+    array = Array.from(new Set(array.sort((a, b) => (a > b ? 1 : -1))));
     if (start > end) {
         return null;
     }
@@ -25,4 +15,31 @@ function buildTree(array, start = 0, end = array.length - 1) {
 
     return node;
 }
-console.log(JSON.stringify(buildTree([1, 2, 3, 4, 5, 6, 7, 8, 9]), null, 4));
+
+const Tree = (array) => {
+    const root = buildTree(array);
+    // accepts a value and inserts the value in the tree
+    const insert = (newValue, tree = root) => {
+        if (tree.value > newValue) {
+            if (tree.left === null) {
+                return (tree.left = Node(newValue));
+            } else {
+                return insert(newValue, tree.left);
+            }
+        } else if (tree.value < newValue) {
+            if (tree.right === null) {
+                return (tree.right = Node(newValue));
+            } else {
+                return insert(newValue, tree.right);
+            }
+        }
+    };
+
+    return {
+        root,
+        insert,
+    };
+};
+let tree = Tree([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+console.log(JSON.stringify(tree.root, null, 4));
