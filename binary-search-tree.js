@@ -88,6 +88,22 @@ const Tree = (array) => {
         }
         return null;
     };
+    // traverses the tree in breadth-first-search and provide each node to the function passed to it and if no function is passed to it it returns an array of values
+    const levelOrder = (passedFunction = null, tree = root, arr = []) => {
+        if (tree === null) {
+            return null;
+        }
+        let BFS = [];
+        arr.push(tree);
+        while (arr.length) {
+            let current = arr.shift();
+            passedFunction ? passedFunction(current) : BFS.push(current.value);
+            if (current.left !== null) arr.push(current.left);
+            if (current.right !== null) arr.push(current.right);
+        }
+
+        return passedFunction ?? BFS;
+    };
 
     return {
         root,
