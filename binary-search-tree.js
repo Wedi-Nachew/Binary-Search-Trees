@@ -77,6 +77,17 @@ const Tree = (array) => {
 
         return null;
     };
+    // returns the node with given value
+    const find = (valueToBeSearched, tree = root) => {
+        if (valueToBeSearched === tree.value) {
+            return tree;
+        } else if (valueToBeSearched > tree.value) {
+            return find(valueToBeSearched, tree.right);
+        } else if (valueToBeSearched < tree.value) {
+            return find(valueToBeSearched, tree.left);
+        }
+        return null;
+    };
 
     return {
         root,
