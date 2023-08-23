@@ -200,12 +200,26 @@ const Tree = (array) => {
         reBalance,
     };
 };
-// let tree = Tree([10, 43, 59, 9, 45, 87, 62, 25, 92, 11, 84, 55]);
-let tree = Tree([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-tree.insert(100);
-tree.insert(102);
-tree.insert(103);
-console.log(tree.isBalanced(tree.root));
-tree.reBalance(tree);
-console.log(tree.isBalanced(tree.root));
-// console.log(JSON.stringify(tree.root, null, 4));
+
+let tree = Tree([34, 49, 92, 9, 11, 30, 53, 44, 81, 72]);
+// console.log(tree.isBalanced(tree.root));
+// tree.insert(100);
+// tree.insert(102);
+// tree.insert(103);
+// tree.reBalance(tree);
+// console.log(tree.isBalanced(tree.root));
+
+const prettyPrint = (node, prefix = "", isLeft = true) => {
+    if (node === null) {
+        return;
+    }
+    if (node.right !== null) {
+        prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+    }
+    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
+    if (node.left !== null) {
+        prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+    }
+};
+
+prettyPrint(tree.root);
