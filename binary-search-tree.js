@@ -88,7 +88,8 @@ const Tree = (array) => {
         }
         return null;
     };
-    // traverses the tree in breadth-first-search and provide each node to the function passed to it and if no function is passed to it it returns an array of values
+    // traverses the tree in breadth-first-search and provide each node
+    // to the function passed to it and if no function is passed to it it returns an array of values
     const levelOrder = (passedFunction = null, tree = root, arr = []) => {
         if (tree === null) {
             return null;
@@ -104,6 +105,20 @@ const Tree = (array) => {
 
         return passedFunction ?? BFS;
     };
+    // traverses the tree in deepth-first-search and provide each node
+    // to the function passed to it in preorder and if no function is passed
+    // to it it returns an array of values in preOrder
+    const preOrder = (passedFunction = null, tree = root, DFS = []) => {
+        if (tree === null) return null;
+        passedFunction ? passedFunction(tree) : DFS.push(tree.value);
+        preOrder(passedFunction, tree.left, DFS);
+        preOrder(passedFunction, tree.right, DFS);
+
+        return DFS;
+    };
+    // traverses the tree in deepth-first-search and provide each node
+    // to the function passed to it in postorder and if no function is passed
+    // to it it returns an array of values in postOrder
 
     return {
         root,
