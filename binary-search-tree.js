@@ -139,6 +139,21 @@ const Tree = (array) => {
         return DFS;
     };
 
+    // accepts a value and returns the number of edges in path from a given node to the tree’s root node.
+    const depth = (node, tree = root, count = 0) => {
+        if (tree === null) {
+            return null;
+        } else if (node.value > tree.value) {
+            count++;
+            return depth(node, tree.right, count);
+        } else if (node.value < tree.value) {
+            count++;
+            return depth(node, tree.left, count);
+        }
+
+        return count;
+    };
+
     return {
         root,
         insert,
@@ -154,5 +169,5 @@ const Tree = (array) => {
 };
 let tree = Tree([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-console.log(tree.height(Node(7, Node(6), Node(8, null, Node(9)))));
+console.log(tree.height(tree.root));
 // console.log(JSON.stringify(tree.root, null, 4));
