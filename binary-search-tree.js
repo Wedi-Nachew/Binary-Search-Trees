@@ -183,7 +183,7 @@ const Tree = (array) => {
         return false;
     };
     const reBalance = (tree) => {
-        tree.root = buildTree(inOrder(null, tree));
+        tree.root = buildTree(inOrder(null, tree.root));
     };
     return {
         root,
@@ -201,14 +201,6 @@ const Tree = (array) => {
     };
 };
 
-let tree = Tree([34, 49, 92, 9, 11, 30, 53, 44, 81, 72]);
-// console.log(tree.isBalanced(tree.root));
-// tree.insert(100);
-// tree.insert(102);
-// tree.insert(103);
-// tree.reBalance(tree);
-// console.log(tree.isBalanced(tree.root));
-
 const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
         return;
@@ -221,5 +213,23 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
         prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
 };
+
+// Testing
+let tree = Tree([34, 49, 92, 9, 11, 30, 53, 44, 81, 72]);
+console.log(tree.isBalanced(tree.root));
+console.log(tree.levelOrder());
+console.log(tree.postOrder());
+console.log(tree.preOrder());
+console.log(tree.inOrder());
+tree.insert(100);
+tree.insert(102);
+tree.insert(103);
+console.log(tree.isBalanced(tree.root));
+tree.reBalance(tree);
+console.log(tree.isBalanced(tree.root));
+console.log(tree.levelOrder());
+console.log(tree.postOrder());
+console.log(tree.preOrder());
+console.log(tree.inOrder());
 
 prettyPrint(tree.root);
