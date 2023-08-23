@@ -127,6 +127,17 @@ const Tree = (array) => {
 
         return DFS;
     };
+    // traverses the tree in deepth-first-search and provide each node
+    // to the function passed to it in postorder and if no function is passed
+    // to it it returns an array of values in postOrder
+    const postOrder = (passedFunction = null, tree = root, DFS = []) => {
+        if (tree === null) return null;
+        postOrder(passedFunction, tree.left, DFS);
+        postOrder(passedFunction, tree.right, DFS);
+        passedFunction ? passedFunction(tree) : DFS.push(tree.value);
+
+        return DFS;
+    };
 
     return {
         root,
